@@ -1,2 +1,1 @@
-# Carrito-Compras-JavaScript
- Carrito de compras con JavaScript y LocalStorage
+Proyecto final JAVASCRIPT. carro de compras Surfingducks
