@@ -3,15 +3,15 @@ class Carrito {
     //Añadir producto al carrito
     comprarProducto(e){
         e.preventDefault();
-        //Delegado para agregar al carrito
+        //if para agregar si no se agregaron
         if(e.target.classList.contains('agregar-carrito')){
             const producto = e.target.parentElement.parentElement;
-            //Enviamos el producto seleccionado para tomar sus datos
+            //Datos para agregar
             this.leerDatosProducto(producto);
         }
     }
 
-    //Leer datos del producto
+    //Datos de producto
     leerDatosProducto(producto){
         const infoProducto = {
             imagen : producto.querySelector('img').src,
@@ -61,7 +61,7 @@ class Carrito {
 
     }
 
-    //Eliminar el producto del carrito en el DOM
+    //Poner en el DOM los productos
     eliminarProducto(e){
         e.preventDefault();
         let producto, productoID;
@@ -75,7 +75,7 @@ class Carrito {
 
     }
 
-    //Elimina todos los productos
+    //Eliminar productos del DOM
     vaciarCarrito(e){
         e.preventDefault();
         while(listaProductos.firstChild){
@@ -97,11 +97,11 @@ class Carrito {
         localStorage.setItem('productos', JSON.stringify(productos));
     }
 
-    //Comprobar que hay elementos en el LS
+    //Obtener Productos de json
     obtenerProductosLocalStorage(){
         let productoLS;
 
-        //Comprobar si hay algo en LS
+       //Check si hay elementos en storage
         if(localStorage.getItem('productos') === null){
             productoLS = [];
         }
@@ -111,7 +111,7 @@ class Carrito {
         return productoLS;
     }
 
-    //Mostrar los productos guardados en el LS
+  //Mostrar elemenos del storage
     leerLocalStorage(){
         let productosLS;
         productosLS = this.obtenerProductosLocalStorage();
@@ -132,7 +132,7 @@ class Carrito {
         });
     }
 
-    //Mostrar los productos guardados en el LS en compra.html
+    //MOSTRAR PRODUCTOS GUARDADOS EN HTML
     leerLocalStorageCompra(){
         let productosLS;
         productosLS = this.obtenerProductosLocalStorage();
@@ -156,28 +156,25 @@ class Carrito {
         });
     }
 
-    //Eliminar producto por ID del LS
+    //ERLIMINAR DEL STORAGE POR ID
     eliminarProductoLocalStorage(productoID){
         let productosLS;
-        //Obtenemos el arreglo de productos
         productosLS = this.obtenerProductosLocalStorage();
-        //Comparar el id del producto borrado con LS
         productosLS.forEach(function(productoLS, index){
             if(productoLS.id === productoID){
                 productosLS.splice(index, 1);
             }
         });
 
-        //Añadimos el arreglo actual al LS
         localStorage.setItem('productos', JSON.stringify(productosLS));
     }
 
-    //Eliminar todos los datos del LS
+    
     vaciarLocalStorage(){
         localStorage.clear();
     }
 
-    //Procesar pedido
+   
     procesarPedido(e){
         e.preventDefault();
 
@@ -195,7 +192,7 @@ class Carrito {
         }
     }
 
-    //Calcular montos
+    //CALUCLO DE MONTOS
     calcularTotal(){
         let productosLS;
         let total = 0, igv = 0, subtotal = 0;
@@ -206,7 +203,7 @@ class Carrito {
             
         }
         
-        igv = parseFloat(total * 0.18).toFixed(2);
+        igv = parseFloat(total * 0.21).toFixed(2);
         subtotal = parseFloat(total-igv).toFixed(2);
 
         document.getElementById('subtotal').innerHTML = "S/. " + subtotal;
